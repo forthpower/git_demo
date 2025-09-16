@@ -7,7 +7,7 @@ def home():
 
 @app.route('/api/greet', methods=['GET'])
 def greet():
-    name = request.args.get('5', 'World')
+    name = request.args.get('6', 'World')
     return jsonify({"message": f"Hello, {name}!"})
 
 @app.route('/api/sum', methods=['POST'])
