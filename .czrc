@@ -1,0 +1,7 @@
+{
+"path": "cz-conventional-changelog",
+"cz-conventional-commit": {
+"maxSubjectLength": 72,
+"bodyLineLength": 100
+}
+}
