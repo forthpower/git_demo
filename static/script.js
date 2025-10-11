@@ -2215,8 +2215,25 @@ async function autoSyncSchemas() {
         
         // 为每个模型生成 schema
         const syncData = modelsToSync.map(model => {
-            // 生成该模型的 schema
-            const schemaObj = adminSystem.buildSchemaObject(model);
+            // 清理字段：移除前端使用的id属性
+            const cleanFields = (model.fields || []).map(field => {
+                const { id, ...cleanField } = field;
+                return cleanField;
+            });
+            
+            // 构建 schema 对象
+            const schemaObj = {
+                name: model.name || 'model_name',
+                label: model.label || 'label',
+                primary_key: model.primary_key || '',
+                entry: model.entry || 'list',
+                parent: model.parent || '',
+                action: model.action || [],
+                fields: cleanFields,
+                base_props: model.base_props || {},
+                custom_actions: model.custom_actions || []
+            };
+            
             const schemaContent = adminSystem.formatJSON(schemaObj);
             
             return {
